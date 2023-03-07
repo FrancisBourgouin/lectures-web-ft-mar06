@@ -14,38 +14,38 @@
 
 const calculateSum = function(listOfValues){
     let sumBuffer = 0
-    for(let i = 0; i < listOfValues.length; i++){
-        const currentNumber = listOfValues[i]
-
-        if(typeof(currentNumber) === "number"){
-            sumBuffer += currentNumber
-        }
+    for(const currentNumber of listOfValues){
+        sumBuffer += currentNumber
     }
 
     return sumBuffer
 }
 
+const convertAndValidateList = function(list){
 
-const result = calculateSum([1,2,3,4,5,6,76,7,8,"WAHAHAHAH", false, -20])
-console.log(result)
-
-
-// Extract values from the command line
-
-
-const convertProcessValues = function(){
-    const valuesOfTheCommandLine = process.argv
     const numberListBuffer = []
-    for(let i = 0; i < valuesOfTheCommandLine.length; i++){
-        const currentValue = Number(valuesOfTheCommandLine[i])
-        
-        numberListBuffer.push(currentValue)
+    for(const currentValue of list){
+        const isValidValue = !Number.isNaN(currentValue)
+
+        if(isValidValue){
+            numberListBuffer.push(currentValue)
+        }
     }
     
     return numberListBuffer
 }
-const processedValues = convertProcessValues()
-console.log(processedValues)
 
-const resultAgain = calculateSum(processedValues)
-console.log(resultAgain)
+const resilientCalculateSum = function(list){
+    const cleanedList = convertAndValidateList(list)
+    const sum = calculateSum(cleanedList)
+
+    return sum
+}
+
+
+const result = resilientCalculateSum(process.argv)
+console.log(result)
+
+
+const result2 = resilientCalculateSum(['a',12,3,4,45,56,6,false])
+console.log(result2)
