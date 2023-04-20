@@ -16,6 +16,12 @@ const city = "";
 const cityList = ["", ""];
 ```
 
+1,2,3,4,5
+
+for(const element of arr){
+newArray.push(element)
+}
+
 ## Weather Data
 
 Temp is in K
